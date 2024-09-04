@@ -5,24 +5,22 @@ import java.util.Map;
 import com.example.icare.constant.MessageConstant;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
 
 @JsonInclude(Include.NON_NULL)
+@ToString
 public class ResponseDTO<D> {
 
-    private Map<String,String> headers;
+    private String statusCode = MessageConstant.STATUS_200;
 
-    private String status = MessageConstant.STATUS_200;
+    private String errorCode;
 
     private String message;
 
-    D data;
+    private D data;
 
-    @Override
-    public String toString() {
-        return "ResponseVO [status=" + status + ", message=" + message + ", data=" + data + "]";
-    }
 
     public ResponseDTO(D data) {
         this.data = data;
@@ -32,20 +30,28 @@ public class ResponseDTO<D> {
         // do nothing
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatusCode() {
+        return statusCode;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
     }
 
-    public void setStatus(int status) {
-        this.status = String.valueOf(status);
+    public String getErrorCode() {
+        return errorCode;
     }
 
-    public void setStatus(HttpStatus status) {
-        this.status = String.valueOf(status.series().value());
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public D getData() {
@@ -55,13 +61,4 @@ public class ResponseDTO<D> {
     public void setData(D data) {
         this.data = data;
     }
-
-    public Map<String, String> getHeaders() {
-        return headers;
-    }
-
-    public void setHeaders(Map<String, String> headers) {
-        this.headers = headers;
-    }
-
 }

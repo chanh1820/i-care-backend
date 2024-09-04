@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
         response.setStatusCode(MessageConstant.STATUS_500);
         response.setErrorCode(ex.getErrorCode());
         response.setMessage(ex.getMessage());
-        return ResponseEntity.badRequest().body(response);
+        return ResponseEntity.ok().body(response);
     }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDTO> handleGlobalException(HttpServletRequest request, Exception ex) {

@@ -5,9 +5,11 @@ import com.example.icare.constant.MessageEnum;
 import com.example.icare.dto.AccountDTO;
 import com.example.icare.dto.LoginDTO;
 import com.example.icare.entity.AccountEntity;
+import com.example.icare.entity.UserInfoEntity;
 import com.example.icare.exception.BusinessRuntimeException;
 import com.example.icare.mapper.AccountMapper;
 import com.example.icare.repository.AccountRepository;
+import com.example.icare.repository.UserInfoRepository;
 import com.example.icare.service.AccountService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -29,6 +31,9 @@ public class AccountServiceImpl implements AccountService {
     AccountRepository accountRepository;
 
     @Autowired
+    UserInfoRepository userInfoRepository;
+
+    @Autowired
     AccountMapper accountMapper;
 
 
@@ -48,14 +53,21 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public AccountDTO registry(AccountDTO accountDTO) {
         List<AccountEntity> accountEntities = accountRepository.findByUsername(accountDTO.getUsername());
 
         if(CollectionUtils.isNotEmpty(accountEntities)){
             throw new BusinessRuntimeException(MessageEnum.ERR_ACCOUNT_EXISTING);
         }
-        accountRepository.save(accountMapper.toEntity(accountDTO));
+
         AccountEntity result = accountRepository.save(accountMapper.toEntity(accountDTO));
+
+        UserInfoEntity userInfoEntity = new UserInfoEntity();
+        userInfoEntity.setAccountId(result.getId());
+        userInfoEntity.setFullName(accountDTO.getDisplayName());
+        userInfoRepository.save(userInfoEntity);
+
         return accountMapper.toDTO(result);
     }
 

@@ -19,5 +19,6 @@ public class AccountDTO {
 
     private String password;
 
+    private String displayName;
 
 }

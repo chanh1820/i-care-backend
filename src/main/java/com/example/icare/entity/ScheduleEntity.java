@@ -34,6 +34,9 @@ public class ScheduleEntity {
     @Column(name = "night_hour")
     private String nightHour;
 
+    @Column(name = "medicine_list")
+    private String medicineList;
+
     @Column(name = "note")
     private String note;
 

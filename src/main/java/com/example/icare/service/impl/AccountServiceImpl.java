@@ -67,7 +67,6 @@ public class AccountServiceImpl implements AccountService {
         userInfoEntity.setAccountId(result.getId());
         userInfoEntity.setFullName(accountDTO.getDisplayName());
         userInfoRepository.save(userInfoEntity);
-
         return accountMapper.toDTO(result);
     }
 

@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +26,10 @@ public class ScheduleDTO {
     private String noonHour;
 
     private String nightHour;
+
+    private String medicineList;
+
+    private List<MedicineDTO> medicineDTOS;
 
     private String note;
 

@@ -40,6 +40,9 @@ public class ScheduleEntity {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "account_id")
     private Integer accountId;
 }

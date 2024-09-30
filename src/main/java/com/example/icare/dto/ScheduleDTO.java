@@ -33,5 +33,7 @@ public class ScheduleDTO {
 
     private String note;
 
+    private String name;
+
     private Integer accountId;
 }
